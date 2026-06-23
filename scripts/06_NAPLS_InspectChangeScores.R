@@ -15,9 +15,9 @@ p_load(readr,tidyr,dplyr,stringr,ggplot2,ggrepel,gridExtra,readxl,lme4,broom)
 # show working directory and ensure that the folder results including the data is located there
 getwd()
 # define input directory for behavioral and functional connectivity data
-in_dir = "results/napls/05_NAPLS_FinalDataPreparation/"
+in_dir = "PATH/TO/DIRECTORY/"
 # define output directory
-out_dir = "results/napls/06_NAPLS_InspectChangeScores/"
+out_dir = "PATH/TO/DIRECTORY/"
 # create output directory for this script
 dir.create(out_dir, recursive = TRUE,showWarnings=F)
 # read data
