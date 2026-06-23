@@ -15,9 +15,9 @@ p_load(readr,tidyr,dplyr,stringr,ggplot2,gridExtra,tibble)
 # show working directory and ensure that the folder behavioral including the data is located there
 getwd()
 # define input directory
-in_dir = "data/napls/behavioral/"
+in_dir = "PATH/TO/DIRECTORY/"
 # define output directory
-out_dir = "results/napls/01_NAPLS_BehavData_PreparationCleaning/"
+out_dir = "PATH/TO/DIRECTORY/"
 # create output directory for this script
 dir.create(out_dir, recursive = TRUE,showWarnings=F)
 # read behavioral data
