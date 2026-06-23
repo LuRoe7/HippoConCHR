@@ -15,9 +15,9 @@ p_load(tidyr,dplyr,stringr,readxl,ggplot2,gridExtra,data.table)
 # show working directory and ensure that the folder results including the data is located there
 getwd()
 # define input directory
-in_dir = "results/napls/"
+in_dir = "PATH/TO/DIRECTORY/"
 # define output directory
-out_dir = "results/napls/03_NAPLS_ModalityMerging/"
+out_dir = "PATH/TO/DIRECTORY/"
 # create output directory for this script
 dir.create(out_dir, recursive = TRUE,showWarnings=F)
 # read behavioral data
