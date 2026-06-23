@@ -15,13 +15,13 @@ p_load(readr,tidyr,dplyr,stringr,readxl,ggplot2,gridExtra,scales,viridis)
 # show working directory and ensure that the folder fmri including the data is located there
 getwd()
 # define input directory
-in_dir = "data/napls/fmri/"
+in_dir = "PATH/TO/DIRECTORY/"
 # define output directory
-out_dir = "results/napls/02_NAPLS_rsfMRIData_PreparationCleaning/"
+out_dir = "PATH/TO/DIRECTORY/"
 # create output directory for this script
 dir.create(out_dir, recursive = TRUE,showWarnings=F)
 # read fMRI data (saved as .RData file due to its size)
-load(paste0(in_dir,"old/napls_fMRI_BN_RegionToRegionFC.RData"))
+load(paste0(in_dir,"napls_fMRI_BN_RegionToRegionFC.RData")) # this file was created previously and contains the Region-To-Region FC for each subject
 # make copy of FC data
 df_fc = df_raw
 # rename sessions
@@ -30,11 +30,11 @@ df_fc$session = df_fc$session %>% str_replace('2m','M2') %>% str_replace('4m','M
 # adjust subject ID column by adding an s at the beginning
 df_fc$subject_id = paste0('s',df_fc$subject_id)
 # read quality control data
-df_fd = read.csv("data/napls/fmri/qc/napls_fmri_qc.csv")
+df_fd = read.csv(paste0(in_dir,"napls_fmri_qc.csv"))
 # merge with FC data while keeping only subjects with valid FC data
 df_fc = merge(df_fc,df_fd,by=c("subject_id","session"),all.x = T)
 # read text file containing region names
-regions = read.csv("data/BN_Atlas_246.txt",header = F)$V1
+regions = read.csv(paste0(in_dir,"BN_Atlas_246.txt"),header = F)$V1
 # remove dots from column names to make it fit to region names from text file
 colnames(df_fc) = colnames(df_fc) %>% str_replace_all("/","") %>% str_replace_all("[.]","") %>% str_replace_all("[+]","")
 
