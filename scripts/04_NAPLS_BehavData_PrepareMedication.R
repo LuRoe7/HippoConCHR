@@ -13,13 +13,13 @@ p_load(readr,tidyr,dplyr,stringr,ggplot2,ggrepel,gridExtra,readxl,chlorpromazine
 
 # BASIC PREPARATIONS ---------------------------------------------------------------------------
 # set path to input folder in which medication data is stored
-in_path = "data/napls/behavioral/medication_napls/input/"
+in_path = "PATH/TO/DIRECTORY/"
 # define output folder
-out_path = "data/napls/behavioral/medication_napls/output/"
+out_path = "PATH/TO/DIRECTORY/"
 # define input directory for behavioral and functional connectivity data
-in_dir = "results/napls/03_NAPLS_ModalityMerging/"
+in_dir = "PATH/TO/DIRECTORY/"
 # define output directory
-out_dir = "results/napls/04_NAPLS_BehavData_PrepareMedication/"
+out_dir = "PATH/TO/DIRECTORY/"
 # create output directory for this script
 dir.create(out_dir, recursive = TRUE,showWarnings=F)
 # read merged NAPLS data
