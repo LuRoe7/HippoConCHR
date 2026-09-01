@@ -15,9 +15,9 @@ p_load(readr,tidyr,dplyr,stringr,readxl,ggplot2,gridExtra,scales,viridis)
 # show working directory and ensure that the folder fmri including the data is located there
 getwd()
 # define input directory
-in_dir = "results/napls/P1_HippoFC/02_NAPLS_rsfMRIData_PreparationCleaning/"
+in_dir = "PATH/TO/DIRECTORY/"
 # define output directory
-out_dir = "results/napls/P1_HippoFC/18_NAPLS_rsfMRIData_ReHoCorr/"
+out_dir = "PATH/TO/DIRECTORY/"
 # create output directory for this script
 dir.create(out_dir, recursive = TRUE,showWarnings=F)
 # read fMRI data
@@ -25,13 +25,13 @@ df_fc = read_csv(paste0(in_dir,"napls_rsfMRI_FunctionalConnectivity_cleaned.csv"
 # rename subject column
 df_fc = df_fc %>% rename(mri_id = subject_id)
 # read ReHo data
-load("data/napls/fmri/napls_reho_long_Brainnetome.RData")
+load("PATH/TO/DIRECTORY/napls_reho_long_Brainnetome.RData")
 # compute mean ReHo
 df_reho$reho_hip = rowMeans(df_reho[c("rHippL","rHippR","cHippL","cHippR")],na.rm=T)
 # merge by subject and session
 df_fmri = merge(df_fc,df_reho,by=c("mri_id","session"),all.x=T)
 # read behavioral data
-df_behav = read_csv("results/napls/P1_HippoFC/01_NAPLS_BehavData_PreparationCleaning/napls_behavioral_wide_cleaned.csv")
+df_behav = read_csv("PATH/TO/DIRECTORY/napls_behavioral_wide_cleaned.csv")
 # rename subject column
 df_behav = df_behav %>% rename(mri_id = subject_id)
 # select columns of interest
