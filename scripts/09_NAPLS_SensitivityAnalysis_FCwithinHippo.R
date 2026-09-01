@@ -16,9 +16,9 @@ p_load(readr,tidyr,dplyr,stringr,ggplot2,ggrepel,gridExtra,ggExtra,readxl,writex
 # show working directory and ensure that the folder results including the data is located there
 getwd()
 # define input directory for behavioral and FC data
-in_dir = "results/napls/P1_HippoFC/07_NAPLS_SingleSubjectRegressions/"
+in_dir = "PATH/TO/DIRECTORY/"
 # define output directory
-out_dir = "results/napls/P1_HippoFC/09_NAPLS_SensitivityAnalysis_FCwithinHippo/"
+out_dir = "PATH/TO/DIRECTORY/"
 # create output directory for this script
 dir.create(out_dir, recursive = TRUE,showWarnings=F)
 # read data including behavioral and FC data and all slopes with imputed SEs
@@ -43,7 +43,7 @@ neurovars = c("fchil","fchir","fchih")
 # Note: in this analysis cases and controls are used that have a slope in the respective behavioral AND the MRI variable.
 # re-define and set working directory in which the MPLUS .exe file is stored -> necessary because the path of the working directory
 # must not be too long for MPLUS
-wd = "/home/lukas/mplus"
+wd = "PATH/TO/MPLUS/DIRECTORY/"
 setwd(wd)
 # run latent variable regression in loop
 for (bvar in behavvars) {
