@@ -16,9 +16,9 @@ p_load(readr,tidyr,dplyr,stringr,ggplot2,ggrepel,gridExtra,ggExtra,readxl,writex
 # show working directory and ensure that the folder results including the data is located there
 getwd()
 # define input directory for behavioral and FC data
-in_dir = "results/napls/07_NAPLS_SingleSubjectRegressions/"
+in_dir = "PATH/TO/DIRECTORY/"
 # define output directory
-out_dir = "results/napls/15_NAPLS_PowerAnalysis_HippoFCandSymptoms/"
+out_dir = "PATH/TO/DIRECTORY/"
 # create output directory for this script
 dir.create(out_dir, recursive = TRUE,showWarnings=F)
 # read data including behavioral and FC data and all slopes with imputed SEs
@@ -41,7 +41,7 @@ neurovars = c("fchi")
 # Note: in this analysis cases and controls are used that have a slope in the respective behavioral AND the MRI variable.
 # re-define and set working directory in which the MPLUS .exe file is stored -> necessary because the path of the working directory
 # must not be too long for MPLUS
-wd = "/home/lukas/mplus"
+wd = "PATH/TO/MPLUS/DIRECTORY"
 setwd(wd)
 # run latent variable regression and power analysis in loop
 for (bvar in behavvars) {
@@ -308,7 +308,7 @@ OUTPUT: TECH9;")
   }
 }
 # define and set old working directory
-old_wd = "/home/lukas/Desktop/LukasLinux/Projects/LongitMechanisms/"
+old_wd = "PATH/TO/DIRECTORY/"
 setwd(old_wd)
 # create sub-directory in output folder
 dir.create(paste0(out_dir,"MplusOutputs"), recursive = TRUE,showWarnings=F)
@@ -476,7 +476,7 @@ for (bvar in behavvars) {
     
     ##### Latent variable regression - manifest FC slope and latent clinical slope #####
     # re-specify working directory which must not be too long for MPLUS
-    wd = "/home/lukas/mplus"
+    wd = "PATH/TO/MPLUS/DIRECTORY"
     setwd(wd)
     # print process
     print(paste0("Running Single Indicator Approach for ",bvar, " and ",nvar,"..."))
@@ -724,7 +724,7 @@ for (bvar in behavvars) {
     # export model stats
     write.csv(df_res, file = paste0("SingleIndicator_OnlyPatients_PathsUnstandardized_",bvar,"_",nvar, "_PowerAnalysis_Prediction.csv"), row.names = FALSE)
     # define and set old working directory
-    old_wd = "/home/lukas/Desktop/LukasLinux/Projects/LongitMechanisms/"
+    old_wd = "PATH/TO/DIRECTORY/"
     setwd(old_wd)
     # create sub-directory in output folder
     dir.create(paste0(out_dir,"MplusOutputs"), recursive = TRUE,showWarnings=F)
