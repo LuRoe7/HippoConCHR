@@ -43,7 +43,7 @@ neurovars = c("fcsal","fcdmn","fcfpn","fclim","fcvis","fcsmn","fcamy","fcbg","fc
 # Note: in this analysis cases and controls are used that have a slope in the respective behavioral AND the MRI variable.
 # re-define and set working directory in which the MPLUS .exe file is stored -> necessary because the path of the working directory
 # must not be too long for MPLUS
-wd = "/home/lukas/mplus"
+wd = "PATH/TO/MPLUS/DIRECTORY"
 setwd(wd)
 # initialize error log
 error_log_file = file.path(wd, "error_log.txt")
@@ -243,7 +243,7 @@ for (bvar in behavvars) {
   }
 }
 # define and set old working directory
-old_wd = "/home/lukas/Desktop/LukasLinux/Projects/LongitMechanisms/"
+old_wd = "PATH/TO/DIRECTORY/"
 setwd(old_wd)
 # create sub-directory in output folder
 dir.create(paste0(out_dir,"MplusOutputs"), recursive = TRUE,showWarnings=F)
