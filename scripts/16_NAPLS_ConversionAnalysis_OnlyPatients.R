@@ -16,9 +16,9 @@ p_load(readr,tidyr,dplyr,stringr,ggplot2,ggrepel,gridExtra,ggExtra,readxl,writex
 # show working directory and ensure that the folder results including the data is located there
 getwd()
 # define input directory for behavioral and FC data
-in_dir = "results/napls/P1_HippoFC/07_NAPLS_SingleSubjectRegressions/"
+in_dir = "PATH/TO/DIRECTORY/"
 # define output directory
-out_dir = "results/napls/P1_HippoFC/16_NAPLS_ConversionAnalysis_OnlyPatients/"
+out_dir = "PATH/TO/DIRECTORY/"
 # create output directory for this script
 dir.create(out_dir, recursive = TRUE,showWarnings=F)
 # read data including behavioral and FC data and all slopes with imputed SEs
@@ -26,7 +26,7 @@ df_napls_mlr_imp = read.csv(paste0(in_dir,"Napls_BehavFCandSlopes_impSE.csv"))
 # keep only CHR individuals
 df_napls_mlr_imp = subset(df_napls_mlr_imp,group ==1)
 # define input directory for conversion data
-in_dir_conv = "data/napls/behavioral/"
+in_dir_conv = "PATH/TO/DIRECTORY/"
 # read data including behavioral and FC data and all slopes with imputed SEs
 df_napls_conv = read.csv(paste0(in_dir_conv,"napls_behav_conversion.csv"))
 # change rowname of subject ID column
@@ -68,7 +68,7 @@ cat("Total subjects:", conversion_summary$n_total, "\n",       # print total N
 # differs depending on the available time points per subject in each outcome.
 # re-define and set working directory in which the MPLUS .exe file is stored -> necessary because the path of the working directory
 # must not be too long for MPLUS
-wd = "/home/lukas/mplus"
+wd = "PATH/TO/MPLUS/DIRECTORY"
 setwd(wd)
 # run latent variable regression in loop
 # shorten variable names of MRI variables for MPLUS
@@ -230,7 +230,7 @@ df_model = data.frame(
 write.csv(df_model, file = paste0("SingleIndicator_Case-Control_Model_", nvar, ".csv"), row.names = FALSE)
 
 # define and set old working directory
-old_wd = "/home/lukas/Desktop/LukasLinux/Projects/LongitMechanisms/"
+old_wd = "PATH/TO/DIRECTORY/"
 setwd(old_wd)
 # create sub-directory in output folder
 dir.create(paste0(out_dir,"MplusOutputs"), recursive = TRUE,showWarnings=F)
