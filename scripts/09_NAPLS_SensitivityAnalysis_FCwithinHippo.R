@@ -225,7 +225,7 @@ for (bvar in behavvars) {
   }
 }
 # define and set old working directory
-old_wd = "/home/lukas/Desktop/LukasLinux/Projects/LongitMechanisms/"
+old_wd = "PATH/TO/DIRECTORY/"
 setwd(old_wd)
 # create sub-directory in output folder
 dir.create(paste0(out_dir,"MplusOutputs"), recursive = TRUE,showWarnings=F)
