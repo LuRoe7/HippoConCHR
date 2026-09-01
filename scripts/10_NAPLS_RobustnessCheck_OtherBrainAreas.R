@@ -16,9 +16,9 @@ p_load(readr,tidyr,dplyr,stringr,ggplot2,ggrepel,gridExtra,ggExtra,readxl,writex
 # show working directory and ensure that the folder results including the data is located there
 getwd()
 # define input directory for behavioral and FC data
-in_dir = "results/napls/P1_HippoFC/07_NAPLS_SingleSubjectRegressions/"
+in_dir = "PATH/TO/DIRECTORY/"
 # define output directory
-out_dir = "results/napls/P1_HippoFC/10_NAPLS_RobustnessCheck_OtherBrainAreas/"
+out_dir = "PATH/TO/DIRECTORY/"
 # create output directory for this script
 dir.create(out_dir, recursive = TRUE,showWarnings=F)
 # read data including behavioral and FC data and all slopes with imputed SEs
@@ -383,10 +383,10 @@ write_xlsx(df_modelfit, path = paste0(out_dir,"Napls_LatentVariableRegress_Case-
 # read test stats on group * FC interactions for each network
 df_si_stats_netw = read.csv(paste0(out_dir,"Napls_LatentVariableRegress_Case-Control_StandardizedResultsSummary_InteractionsBonf_AllNetw.csv"))
 # define directory and read stats of main analysis on hippocampus
-out_dir_hip = "results/napls/P1_HippoFC/08_NAPLS_MainAnalysis_HippoFCandSymptoms/"
+out_dir_hip = "PATH/TO/DIRECTORY/"
 df_si_stats_hip = read.csv(paste0(out_dir_hip,"Napls_LatentVariableRegress_Case-Control_StandardizedResultsSummary_InteractionsBonf_FCHip.csv"))
 # define directory and read stats of sensitivity analysis on FC patterns within hippocampus
-out_dir_hipw = "results/napls/P1_HippoFC/09_NAPLS_SensitivityAnalysis_FCwithinHippo/"
+out_dir_hipw = "PATH/TO/DIRECTORY/"
 df_si_stats_hipw = read.csv(paste0(out_dir_hipw,"Napls_LatentVariableRegress_Case-Control_StandardizedResultsSummary_InteractionsBonf_WithinHip.csv"))
 # merge stat data frames row-wise
 df_betas = as.data.frame(rbind(df_si_stats_hip,df_si_stats_hipw,df_si_stats_netw))
