@@ -16,9 +16,9 @@ p_load(readr,tidyr,dplyr,stringr,ggplot2,ggrepel,gridExtra,ggExtra,readxl,writex
 # show working directory and ensure that the folder results including the data is located there
 getwd()
 # define input directory for behavioral and FC data
-in_dir = "results/napls/P1_HippoFC/07_NAPLS_SingleSubjectRegressions/"
+in_dir = "PATH/TO/DIRECTORY/"
 # define output directory
-out_dir = "results/napls/P1_HippoFC/08_NAPLS_MainAnalysis_HippoFCandSymptoms/"
+out_dir = "PATH/TO/DIRECTORY/"
 # create output directory for this script
 dir.create(out_dir, recursive = TRUE,showWarnings=F)
 # read data including behavioral and FC data and all slopes with imputed SEs
@@ -32,175 +32,6 @@ behavvars = c("PosS","NegS","DepS","gaf","SyCod", "VeMem")
 # create vector for hippocampal FC
 neurovars = c("fchi")
 
-
-##### TESTING #######
-nvar = "fchi"
-bvar = "NegS"
-# must not be too long for MPLUS
-wd = "/home/lukas/mplus"
-setwd(wd)
-# shorten variable names of MRI variables for MPLUS
-nvar_mplus = nvar %>% str_replace("fc","")
-# create data frame with variables of interest
-df = df_napls_mlr_imp[c(paste0(bvar,"_CH"),paste0(nvar,"_CH"),"CHR",paste0(bvar,"_SE"),paste0(nvar,"_SE"),
-                        "age","female","site02","site03","site04","site05","site06","site07","site08","site09")]
-# remove subjects with any missings
-df = df[complete.cases(df[c(paste0(bvar, "_CH"), paste0(nvar, "_CH"))]), ]
-# get average error variances across group from standard errors of both variables
-se_bvar = mean(df[[paste0(bvar,"_SE")]],na.rm=T)^2
-se_nvar = mean(df[[paste0(nvar,"_SE")]],na.rm=T)^2
-# drop standard error columns again
-df = df[ , !grepl("_SE$", names(df)) ]
-# define the input and output files
-datafile = file.path(wd, paste0("NaplsData_", nvar, "_", bvar, ".dat"))
-inpfile = file.path(wd, paste0("NaplsData_", nvar, "_", bvar, ".inp"))
-# write output file
-write.table(df,datafile,quote = F,row.names = F, col.names = F,append = F, sep = "\t")
-# define the MPLUS input file containing the model
-inp_text = paste0("
-    Title:      LATENT VARIABLE REGRESSION
-
-    Data:       File is ", datafile, ";
-    
-    Variable:
-    names are
-    ", bvar, "_CH
-    ", nvar_mplus, "_CH
-    CHR
-    age
-    female
-    site02
-    site03
-    site04
-    site05
-    site06
-    site07
-    site08
-    site09;
-    
-    usevariables are
-    ", bvar, "_CH
-    ", nvar_mplus, "_CH
-    CHR
-    age
-    female
-    site02
-    site03
-    site04
-    site05
-    site06
-    site07
-    site08
-    site09;
-    
-    missing are all (-99);
-  
-    Analysis:   type = random;
-                ESTIMATOR = MLR;
-                ALGORITHM=INTEGRATION;
-                STARTS=20;
-                STITERATION=50000;
-    
-    Model:
-    
-    LV_", nvar_mplus, " by ", nvar_mplus, "_CH;
-    ", nvar_mplus, "_CH@", format(se_nvar, scientific = FALSE), ";
-    
-    LV_", bvar, " by ", bvar, "_CH;
-    ", bvar, "_CH@", format(se_bvar, scientific = FALSE), ";
-    
-    ", nvar_mplus, "xCHR | LV_", nvar_mplus, " xwith CHR;
-    
-    LV_", bvar, " on LV_", nvar_mplus, " (b1)
-               CHR
-               ", nvar_mplus, "xCHR (b2)
-               age female site02 site03 site04
-               site05 site06 site07 site08
-               site09;
-    
-    LV_", nvar_mplus, " on ", nvar_mplus, "xCHR; 
-    
-    CHR on ", nvar_mplus, "xCHR; 
-    
-    age on ", nvar_mplus, "xCHR; 
-    
-    female on ", nvar_mplus, "xCHR; 
-    
-    site02 on ", nvar_mplus, "xCHR; 
-    
-    site03 on ", nvar_mplus, "xCHR; 
-    
-    site04 on ", nvar_mplus, "xCHR;
-    
-    site05 on ", nvar_mplus, "xCHR;
-    
-    site06 on ", nvar_mplus, "xCHR;
-    
-    site07 on ", nvar_mplus, "xCHR;
-    
-    site08 on ", nvar_mplus, "xCHR;
-    
-    site09 on ", nvar_mplus, "xCHR;
-    
-    LV_", nvar_mplus, " WITH CHR age female 
-                        site02 site03 site04
-                        site05 site06 site07 
-                        site08 site09;
-    
-    CHR WITH age female site02 site03 site04
-                     site05 site06 site07 site08
-                     site09;
-    
-    age WITH female site02 site03 site04
-                     site05 site06 site07 site08
-                     site09;
-    
-    age WITH female site02 site03 site04 site05
-                    site06 site07 site08
-                    site09;
-    
-    female WITH site02 site03 site04 site05
-                    site06 site07 site08
-                    site09;
-    
-    site02 WITH site03 site04 site05
-                    site06 site07 site08
-                    site09;
-    
-    site03 WITH site04 site05 site06 site07 site08
-                    site09;
-    
-    site04 WITH site05 site06 site07 site08
-                    site09;
-    
-    site05 WITH site06 site07 site08
-                    site09;
-    
-    site06 WITH site07 site08 site09;
-    
-    site07 WITH site08 site09;
-    
-    site08 WITH site09;
-    
-    Model Constraint:
-        NEW(effect_ctrl effect_pat);
-        effect_ctrl = b1;
-        effect_pat  = b1 + b2;
-    
-    SAVEDATA: ESTIMATES = power_",nvar,"_",bvar,".dat;
-    Output:     tech1 tech4 stdyx sampstat;
-    "
-)
-# write as input file for MPLUS
-writeLines(inp_text, con = inpfile)
-# run MPLUS
-system(paste("wine Mplus-8.6.exe", basename(inpfile)))
-
-
-
-
-
-
 # LATENT VARIABLE REGRESSION: CASE-CONTROL COMPARISON ----------------------------------------------------------------------------------------------------
 # Note: This code runs the latent variable regression models in MPLUS comparing the link between hippocampal FC
 # change and clinical severity change over time between CHR and healthy controls. The latent variable regression is used to account for
@@ -211,7 +42,7 @@ system(paste("wine Mplus-8.6.exe", basename(inpfile)))
 # Note: in this analysis cases and controls are used that have a slope in the respective behavioral AND the MRI variable.
 # re-define and set working directory in which the MPLUS .exe file is stored -> necessary because the path of the working directory
 # must not be too long for MPLUS
-wd = "/home/lukas/mplus"
+wd = "PATH/TO/MPLUS/DIRECTORY/"
 setwd(wd)
 # run latent variable regression in loop
 for (bvar in behavvars) {
